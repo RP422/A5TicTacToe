@@ -143,9 +143,6 @@ namespace TicTacToe
                     {
                         Console.Write(" - ");
                     }
-                    {
-                        {                                                                                                                                                                                                                                                                                                                                                                 /*Congrats!  You found the easter egg!  Weren't those useless curly brackets annoying? Plus one was missing.... way out here on column 500+*/                                                         }
-                    }
                 }
                 Console.WriteLine();
             }
