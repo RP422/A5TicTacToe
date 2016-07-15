@@ -25,7 +25,7 @@ namespace TicTacToe
 
             //Random names from http://www.behindthename.com/random/ 
             //The names are Greek ;)
-            players[0] = new Player() { Name = "Player 1: Theophania", Token = 'X' }; //using object initialization syntax
+            players[0] = new Player() { Name = "Player 1: Bismuth", Token = 'X' }; //using object initialization syntax
             players[1] = new Player() { Name = "Player 2: Xenon", Token = 'O' };  
         }
 
