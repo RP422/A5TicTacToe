@@ -42,9 +42,9 @@ namespace TicTacToe
             while (!GameOver())
             {
                 Console.WriteLine("Here is the board:");
-                PrintBoard();
+                base.PrintBoard();
 
-                TakeTurn(activePlayer);
+                base.TakeTurn(activePlayer);
                 //select the other player
                 indexOfCurrentPlayer = (indexOfCurrentPlayer == 0) ? 1 : 0;
                 activePlayer = players[indexOfCurrentPlayer];
@@ -54,97 +54,6 @@ namespace TicTacToe
                 System.Threading.Thread.Sleep(300);
 
                 Console.Clear();
-            }
-        }
-
-        /// <summary>
-        /// Get and set the player's desired location on the board
-        /// </summary>
-        /// <param name="activePlayer"></param>
-        private void TakeTurn(Player activePlayer)
-        {
-            int[] position = PiecePlacement(activePlayer);
-            board[position[0], position[1]] = activePlayer.Token;
-        }
-
-
-        /// <summary>
-        /// Give the user instructions for piece placement and return
-        /// the 2D location of the position they select
-        /// </summary>
-        /// <param name="activePlayer"></param>
-        /// <returns></returns>
-        private int[] PiecePlacement(Player activePlayer)
-        {
-            //you need to be using the .NET framework 4.6 for this line to work (C# 6)
-            Console.WriteLine();
-            Console.WriteLine($"{activePlayer.Name}, it's your turn:");
-            Console.WriteLine("Make your move by entering the number of the sqaure you'd like to take:");
-            PrintBoardMap();
-            Console.Write("Enter the number: ");
-
-            //todo: Prevent returning a location that's already been used
-
-            return ConvertToArrayLocation(Console.ReadLine());
-        }
-
-
-        /// <summary>
-        /// Converts a single number entered by the user to an X,Y element for reference
-        /// in a 2D array
-        /// </summary>
-        /// <param name="boardPosition">The single number to be converted</param>
-        /// <returns>The X,Y position intended to be used with a 2D array</returns>
-        public int[] ConvertToArrayLocation(string boardPosition)
-        {
-            int position = Int32.Parse(boardPosition);
-            position--; //reduce position to account for 1-based board map (done for user experience)
-            int row = position / 3;
-            int column = position % 3;
-            return new int[] { row, column }; //inline array initialization
-        }
-
-        /// <summary>
-        /// Prints a number for every position on the board to help the user
-        /// know what single number to enter
-        /// </summary>
-        private void PrintBoardMap()
-        {
-            int position = 1; //1-based board map (done for user experience)
-
-            for (int row = 0; row <= board.GetUpperBound(0); row++)
-            {
-                for (int column = 0; column <= board.GetUpperBound(1); column++)
-                {
-                    Console.Write(position++);
-                    if (column < board.GetUpperBound(1))
-                    {
-                        Console.Write(" - ");
-                    }
-                }
-                Console.WriteLine();
-            }
-        }
-
-        /// <summary>
-        /// Prints the board to the console with extra dashes for legibility
-        /// </summary>
-        private void PrintBoard()
-        {
-            Console.WriteLine();
-            for (int row = 0; row <= board.GetUpperBound(0); row++)
-            {
-                for (int column = 0; column <= board.GetUpperBound(1); column++)
-                {
-                    Console.Write(board[row,column]);
-
-                    //only print the dashes for the inner columns
-                    if (column < board.GetUpperBound(1))
-                    {
-                        Console.Write(" - ");
-                    }
-                }
-                Console.WriteLine();
             }
         }
 

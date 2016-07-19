@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace GameCore
 {
-    public abstract class GameSystems
+    public abstract class Game
     {
         private Board board;
 
         Player[] players;
         Player activePlayer;
 
-        private void TakeTurn(Player activePlayer)
+        protected void TakeTurn(Player activePlayer)
         {
             int[] position = PiecePlacement(activePlayer);
             board.setSquare(position[0], position[1], activePlayer.Token);
         }
 
-        private void PrintBoard()
+        protected void PrintBoard()
         {
             Console.WriteLine();
             for (int row = 0; row <= board.Squares.GetUpperBound(0); row++)
@@ -37,7 +37,7 @@ namespace GameCore
                 Console.WriteLine();
             }
         }
-        private void PrintBoardMap()
+        protected void PrintBoardMap()
         {
             int position = 1; //1-based board map (done for user experience)
 
