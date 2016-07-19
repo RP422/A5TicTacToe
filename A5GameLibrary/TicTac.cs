@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    public class TicTac
+    public class TicTac : GameCore.GameSystems
     {
         static void Main(string[] args)
         {
