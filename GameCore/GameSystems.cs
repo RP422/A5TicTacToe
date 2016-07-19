@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace GameCore
 {
-    public abstract class Game
+    public abstract class GameSystems
     {
         private Board board;
 
         Player[] players;
         Player activePlayer;
+
+        protected abstract void Start();
 
         protected void TakeTurn(Player activePlayer)
         {

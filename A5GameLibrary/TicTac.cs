@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameCore;
 
 namespace TicTacToe
 {
@@ -34,7 +35,7 @@ namespace TicTacToe
         /// The Tic Tac Toe game loop, 2 players.  Iterate player turns until the game
         /// is over
         /// </summary>
-        private void Start()
+        protected override void Start()
         {
             int indexOfCurrentPlayer = 0;
             activePlayer = players[indexOfCurrentPlayer];
