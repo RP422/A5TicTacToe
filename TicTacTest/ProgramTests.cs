@@ -41,9 +41,14 @@ namespace TicTacToe.Tests
             TicTac t = new TicTac();
             int[] expected = new int[] { 2, 2 };
 
-            int[] actual = t.ConvertToArrayLocation("a");
-
-            CollectionAssert.AreEqual(expected, actual);
+            try
+            {
+                int[] actual = t.ConvertToArrayLocation("a");
+            }
+            catch (FormatException e)
+            {
+               Assert.IsInstanceOfType(e, typeof(FormatException));
+            }
         }
 
         [TestMethod()]
@@ -52,10 +57,15 @@ namespace TicTacToe.Tests
             //What should happen when the user enters an invalid number (out of bounds of the map)?
             TicTac t = new TicTac();
             int[] expected = new int[] { 2, 2 };
-
-            int[] actual = t.ConvertToArrayLocation("15");
-
-            CollectionAssert.AreEqual(expected, actual);
+            
+            try
+            {
+                int[] actual = t.ConvertToArrayLocation("15");
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Assert.IsInstanceOfType(e, typeof(IndexOutOfRangeException));
+            }
         }
     }
 }
