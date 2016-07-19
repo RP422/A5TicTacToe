@@ -7,7 +7,7 @@ using GameCore;
 
 namespace TicTacToe
 {
-    public class TicTac : GameCore.GameSystems
+    public class TicTac : GameSystems
     {
         static void Main(string[] args)
         {
@@ -15,9 +15,7 @@ namespace TicTacToe
             p.Start();
         }
 
-
         Player activePlayer;
-        char[,] board = new char[3,3];
         Player[] players;
 
         public TicTac()
@@ -37,35 +35,111 @@ namespace TicTacToe
         /// </summary>
         protected override void Start()
         {
-            int indexOfCurrentPlayer = 0;
-            activePlayer = players[indexOfCurrentPlayer];
-
-            while (!GameOver())
-            {
-                Console.WriteLine("Here is the board:");
-                base.PrintBoard();
-
-                base.TakeTurn(activePlayer);
-                //select the other player
-                indexOfCurrentPlayer = (indexOfCurrentPlayer == 0) ? 1 : 0;
-                activePlayer = players[indexOfCurrentPlayer];
-
-                //Added this slight delay for user experience.  Without it it's harder to notice the board repaint
-                //try commenting it out and check out the difference.  Which do you prefer?
-                System.Threading.Thread.Sleep(300);
-
-                Console.Clear();
-            }
+            GameLoop();
         }
 
         /// <summary>
         /// You didn't think I'd write every method for you, did you?
         /// </summary>
         /// <returns></returns>
-        private bool GameOver()
+        protected override bool GameOver()
         {
-            //if three in a row or all spaces are filled
-            return false;
+            return (CheckHorizontal() || CheckVertical() || CheckDiagonal());
+        }
+
+        private bool CheckHorizontal()
+        {
+            char token;
+            bool check = false;
+
+            for (int row = 0; row <= board.Squares.GetUpperBound(0); row++)
+            {
+                token = board.Squares[row, 0];
+
+                for (int column = 1; column <= board.Squares.GetUpperBound(1); column++)
+                {
+                    if(board.Squares[row, column] != token)
+                    {
+                        break;
+                    }
+                    else if(column == board.Squares.GetUpperBound(1))
+                    {
+                        check = true;
+                    }
+                }
+
+                if (check)
+                {
+                    break;
+                }
+            }
+
+            return check;
+        }
+        private bool CheckVertical()
+        {
+            char token;
+            bool check = false;
+
+            for (int column = 0; column <= board.Squares.GetUpperBound(1); column++)
+            {
+                token = board.Squares[0, column];
+
+                for (int row = 1; row <= board.Squares.GetUpperBound(0); row++)
+                {
+                    if (board.Squares[row, column] != token)
+                    {
+                        break;
+                    }
+                    else if (row == board.Squares.GetUpperBound(0))
+                    {
+                        check = true;
+                    }
+                }
+
+                if (check)
+                {
+                    break;
+                }
+            }
+
+            return check;
+        }
+        private bool CheckDiagonal()
+        {
+            char token = board.Squares[0, 0];
+            bool check = false;
+
+            for (int x = 1; x <= board.Squares.GetUpperBound(0); x++)
+            {
+                if (board.Squares[x, x] != token)
+                {
+                    break;
+                }
+                else if (x == board.Squares.GetUpperBound(0))
+                {
+                    check = true;
+                }
+            }
+
+            if(!check)
+            {
+                token = board.Squares[0, board.Squares.GetUpperBound(0)];
+
+                for (int x = 1; x <= board.Squares.GetUpperBound(0); x++)
+                {
+                    if (board.Squares[x, board.Squares.GetUpperBound(0) - x] != token)
+                    {
+                        break;
+                    }
+                    else if (x == board.Squares.GetUpperBound(0))
+                    {
+                        check = true;
+                    }
+                }
+            }
+
+            return check;
         }
     }
 
